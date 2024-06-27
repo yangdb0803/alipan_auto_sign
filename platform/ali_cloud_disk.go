@@ -90,6 +90,9 @@ func (AliCloudDisk *AliCloudDisk) getReward(accessToken string, signInCount stri
 	}
 	var resMap map[string]interface{}
 	json.Unmarshal(body, &resMap)
+	
+	fmt.Println("打印返回%v\n",resMap)
+	
 	if reward, ok := resMap["result"].(map[string]interface{})["notice"].(string); ok {
 		return reward, nil
 	}
