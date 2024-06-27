@@ -69,7 +69,8 @@ func (AliCloudDisk *AliCloudDisk) signIn(accessToken string) (string, error) {
 }
 
 func (AliCloudDisk *AliCloudDisk) getReward(accessToken string, signInCount string) (string, error) {
-	url := "https://member.aliyundrive.com/v1/activity/sign_in_reward?_rx-s=mobile"
+	// url := "https://member.aliyundrive.com/v1/activity/sign_in_reward?_rx-s=mobile"
+	url := "https://member.aliyundrive.com/v1/activity/sign_in_goods"
 	var dataMap = make(map[string]string)
 	dataMap["signInDay"] = signInCount
 	dataByte, _ := json.Marshal(dataMap)
@@ -93,7 +94,10 @@ func (AliCloudDisk *AliCloudDisk) getReward(accessToken string, signInCount stri
 	
 	fmt.Println("打印返回%v\n",resMap)
 	
-	if reward, ok := resMap["result"].(map[string]interface{})["notice"].(string); ok {
+	// if reward, ok := resMap["result"].(map[string]interface{})["notice"].(string); ok {
+	// 	return reward, nil
+	// }
+	if reward, ok := resMap["result"].(map[string]interface{})["rewardName"].(string); ok {
 		return reward, nil
 	}
 	return "", errors.New("获取奖励失败")
